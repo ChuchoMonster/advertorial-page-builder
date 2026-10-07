@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Sample Advertorial: Lumen Brew (fictional brand)</title>
+<!--
+  SAMPLE OUTPUT, hand-written to show the shape of what the CLAUDE.md prompt
+  produces. Lumen Brew is a FICTIONAL cold-brew coffee brand. Every name,
+  number, review, credential and claim on this page is invented for
+  demonstration. Image blocks are CSS gradients, not photos.
+  Preset: B, "Lifestyle Magazine". Sections follow the 17-part structure.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FEFCFB; --text: #2D3748; --muted: #718096; --accent: #D69E2E;
+    --accent-dark: #B7791F; --alt: #FFFAF0; --line: #EDE6DA; --ok: #2F855A; --no: #C53030;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font: 17px/1.7 "Inter", system-ui, sans-serif; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+  h1, h2, h3 { font-family: "Playfair Display", Georgia, serif; line-height: 1.2; }
+  h1 { font-size: 2.4rem; margin: 28px 0 14px; }
+  h2 { font-size: 1.7rem; margin: 0 0 16px; }
+  h3 { font-size: 1.15rem; margin: 0 0 6px; }
+  p { margin: 0 0 16px; }
+  section { padding: 36px 0; }
+  .alt { background: var(--alt); }
+
+  /* 0. demo notice (not part of the 17-section structure) */
+  .demo-note { background: #2D3748; color: #fff; font-size: 13px; text-align: center; padding: 8px 12px; }
+
+  /* 1. urgency banner */
+  .urgency { position: sticky; top: 0; z-index: 10; background: var(--accent); color: #fff;
+    font-size: 14px; font-weight: 600; text-align: center; padding: 9px 12px; letter-spacing: .02em; }
+
+  /* 3. byline */
+  .byline { color: var(--muted); font-size: 14px; border-bottom: 1px solid var(--line); padding-bottom: 16px; }
+
+  /* image placeholders: gradients stand in for generated images */
+  .ph { border-radius: 8px; box-shadow: 0 6px 20px rgba(45,55,72,.12); display: flex; align-items: flex-end;
+    padding: 14px; color: rgba(255,255,255,.92); font-size: 13px; font-weight: 500; }
+  .ph-hero { height: 340px; margin: 24px 0 8px;
+    background: radial-gradient(circle at 70% 30%, #F6E7C8 0, transparent 40%),
+                linear-gradient(135deg, #6B4423 0%, #3B2416 55%, #1E130C 100%); }
+  .ph-product { height: 280px; width: 65%; margin: 20px auto;
+    background: radial-gradient(ellipse at 50% 85%, rgba(0,0,0,.25) 0, transparent 50%),
+                linear-gradient(180deg, #F3EBDD 0%, #E2D3BA 100%); color: #5A4632; }
+  .caption { font-size: 13px; color: var(--muted); font-style: italic; margin-bottom: 0; }
+
+  /* 6. star rating */
+  .stars { text-align: center; font-size: 1.15rem; padding: 22px 0; border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line); margin: 8px 0; }
+  .stars span { color: var(--accent); font-size: 1.5rem; letter-spacing: 3px; display: block; }
+
+  /* 7. checklist */
+  .checks { list-style: none; margin: 0 0 16px; }
+  .checks li { padding-left: 30px; position: relative; margin-bottom: 10px; }
+  .checks li::before { content: "\2713"; position: absolute; left: 0; color: var(--accent-dark); font-weight: 700; }
+
+  /* 10. feature cards */
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 18px; font-size: 15px; }
+  .card .ico { width: 44px; height: 44px; border-radius: 50%; margin-bottom: 12px; }
+  .ico-1 { background: linear-gradient(135deg, #8C5A2B, #3B2416); }
+  .ico-2 { background: linear-gradient(135deg, #9AE6B4, #2F855A); }
+  .ico-3 { background: linear-gradient(135deg, #FBD38D, #D69E2E); }
+
+  /* 11. testimonials */
+  .reviews { display: grid; gap: 16px; }
+  .review { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 18px; font-size: 15px; }
+  .review .who { font-weight: 600; }
+  .review .meta { color: var(--muted); font-size: 13px; }
+  .review .r-stars { color: var(--accent); letter-spacing: 2px; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: .05em; background: #EDF2F7; color: var(--muted); border-radius: 4px; padding: 2px 7px; margin-left: 6px; }
+
+  /* 12. timeline */
+  .timeline { border-left: 3px solid var(--accent); padding-left: 22px; }
+  .timeline div { margin-bottom: 18px; }
+  .timeline strong { display: block; font-family: "Playfair Display", Georgia, serif; }
+
+  /* 13. comparison */
+  table { width: 100%; border-collapse: collapse; font-size: 15px; background: #fff; }
+  th, td { padding: 12px 10px; border-bottom: 1px solid var(--line); text-align: center; }
+  th:first-child, td:first-child { text-align: left; }
+  thead th { background: var(--text); color: #fff; }
+  .y { color: var(--ok); font-weight: 700; } .n { color: var(--no); font-weight: 700; }
+
+  /* 14. pricing */
+  .tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; align-items: stretch; }
+  .tier { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 22px 16px; text-align: center;
+    display: flex; flex-direction: column; }
+  .tier.best { border: 2px solid var(--accent); box-shadow: 0 8px 24px rgba(214,158,46,.18); position: relative; }
+  .tier.best::before { content: "Most popular"; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--accent); color: #fff; font-size: 12px; font-weight: 600; padding: 3px 12px; border-radius: 999px; }
+  .tier .was { color: var(--muted); text-decoration: line-through; font-size: 14px; }
+  .tier .now { font-size: 2rem; font-weight: 600; margin: 4px 0; }
+  .tier .per { font-size: 13px; color: var(--muted); flex: 1; }
+
+  .btn { display: inline-block; min-height: 48px; line-height: 48px; padding: 0 22px; margin-top: 14px;
+    background: var(--accent); color: #fff; text-decoration: none; font-weight: 600; border-radius: 8px;
+    transition: background .2s, transform .2s; }
+  .btn:hover { background: var(--accent-dark); transform: translateY(-1px); }
+  .btn-lg { font-size: 1.1rem; padding: 0 34px; min-height: 56px; line-height: 56px; }
+
+  /* 15. guarantee */
+  .guarantee { display: flex; gap: 18px; align-items: center; border: 1px dashed var(--accent); border-radius: 10px; padding: 20px; }
+  .shield { flex: 0 0 64px; height: 72px; background: var(--accent);
+    clip-path: polygon(50% 0, 100% 15%, 100% 55%, 50% 100%, 0 55%, 0 15%); }
+
+  .final { text-align: center; }
+  footer { font-size: 12px; color: var(--muted); padding: 28px 0 40px; border-top: 1px solid var(--line); }
+  footer a { color: var(--muted); margin-right: 14px; }
+
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    h1 { font-size: 1.85rem; } h2 { font-size: 1.4rem; }
+    .cards, .tiers { grid-template-columns: 1fr; }
+    .tier.best { margin-top: 10px; }
+    .ph-hero { height: 230px; } .ph-product { width: 100%; height: 220px; }
+    .guarantee { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="demo-note">Demo page. Lumen Brew is a fictional brand; all reviews, names, figures and claims are invented.</div>
+
+<!-- 1. URGENCY BANNER -->
+<div class="urgency">TRENDING: The small-batch cold brew 12,400 home baristas switched to this season</div>
+
+<main class="wrap">
+
+  <!-- 2. EDITORIAL HEADLINE -->
+  <h1>Why Coffee Lovers Are Quietly Ditching Their Morning Drip for an 18-Hour Cold Brew</h1>
+
+  <!-- 3. BYLINE + DATE -->
+  <p class="byline">By Maya Ortega (fictional), Food &amp; Drink Editor | Published October 2026 | 4 min read</p>
+
+  <!-- 4. HERO IMAGE -->
+  <div class="ph ph-hero">[Image placeholder: glass of cold brew on a sunlit kitchen counter]</div>
+  <p class="caption">Our team tasted twelve cold brews over three weeks. One became the office default.</p>
+
+  <!-- 5. OPENING HOOK -->
+  <section>
+    <p>You know the 2:30 slump. You had coffee at 7. Maybe a second cup at 10. And now your stomach's sour, your focus is gone, and you're eyeing the vending machine.</p>
+    <p>For years I blamed the slump on sleep, or lunch, or the meeting that should've been an email. It turns out a lot of it was the coffee itself. Specifically, how it was brewed.</p>
+    <p>A handful of small roasters figured this out a while ago. One of them makes a version I haven't stopped drinking since.</p>
+  </section>
+
+  <!-- 6. STAR RATING INTERRUPTER -->
+  <div class="stars"><span>&#9733;&#9733;&#9733;&#9733;&#9733;</span>Rated 4.8/5 by 3,900+ customers (fictional figures)</div>
+
+  <!-- 7. PAIN POINT ESCALATION -->
+  <section>
+    <h2>Sound familiar?</h2>
+    <ul class="checks">
+      <li>A jolt at 8am, then a crash by mid-afternoon</li>
+      <li>That acidic, burning feeling after the second cup</li>
+      <li>Spending $6 a day at a café because home coffee tastes flat</li>
+      <li>Loading your cup with sugar and creamer to hide the bitterness</li>
+    </ul>
+    <p>You're not alone. Most of us drink coffee that's working against us, then drink more of it to cover the gap.</p>
+  </section>
+
+  <!-- 8. ROOT CAUSE REFRAME -->
+  <section class="alt">
+    <div class="wrap" style="padding:0">
+      <h2>Here's what most people don't realize</h2>
+      <p>The bitterness and the stomach burn don't come from the coffee bean. They come from <strong>heat</strong>. Hot water pulls out the bean's sharpest acids and harshest compounds in about four minutes.</p>
+      <p>Think of it like searing versus slow-cooking. Searing is fast and loud. Slow-cooking pulls out the deep flavor and leaves the harsh edges behind.</p>
+      <p>Most store-bought "cold brew" cuts corners: a few hours of steeping, then a heat-concentrated syrup. You get the label without the method.</p>
+    </div>
+  </section>
+
+  <!-- 9. PRODUCT REVEAL -->
+  <section>
+    <h2>Meet Lumen Brew</h2>
+    <div class="ph ph-product">[Image placeholder: Lumen Brew carton, studio product shot]</div>
+    <p>After two years of testing in a borrowed restaurant kitchen, the (fictional) founders of Lumen Brew settled on one rule: never let the coffee touch heat.</p>
+    <ul class="checks">
+      <li>Steeped for 18 hours at 38&deg;F, not 4 minutes at 200&deg;F</li>
+      <li>Single-origin beans, roasted in batches of 40 lbs</li>
+      <li>Concentrate: one carton makes 16 cups</li>
+    </ul>
+  </section>
+
+  <!-- 10. INGREDIENT / FEATURE CARDS -->
+  <section>
+    <h2>What's inside (and what isn't)</h2>
+    <div class="cards">
+      <div class="card"><div class="ico ico-1"></div><h3>Medium-roast arabica</h3>Chocolate and stone-fruit notes, roasted for smoothness rather than char.</div>
+      <div class="card"><div class="ico ico-2"></div><h3>Filtered cold water</h3>Nothing else. No syrups, no preservatives, no "natural flavors."</div>
+      <div class="card"><div class="ico ico-3"></div><h3>18-hour cold steep</h3>The slow extraction is the whole point: smooth, low-bitterness concentrate.</div>
+    </div>
+  </section>
+
+  <!-- 11. SOCIAL PROOF BLOCK -->
+  <section class="alt">
+    <div class="wrap" style="padding:0">
+      <h2>What (fictional) customers say</h2>
+      <div class="reviews">
+        <div class="review">
+          <span class="who">Dana R., 34, Portland</span><span class="badge">Fictional review</span>
+          <div class="r-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>I was skeptical. I'd tried three cold brews from the grocery store and they all tasted like burnt cardboard. My sister mailed me a carton. About a week in I realized I'd stopped adding sugar. I'm on my fourth carton now.</p>
+        </div>
+        <div class="review">
+          <span class="who">Marcus T., 41, Austin</span><span class="badge">Fictional review</span>
+          <div class="r-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>Honestly, I bought it for the stomach thing. Hot coffee wrecks me by noon. This doesn't. The taste was a bonus.</p>
+        </div>
+        <div class="review">
+          <span class="who">Priya S., 29, Chicago</span><span class="badge">Fictional review</span>
+          <div class="r-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+          <p>Took a few tries to get my ratio right (I do 1:2 with oat milk). Once I did, I stopped stopping at the café on the way to work. That's about $25 a week back.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. RESULTS TIMELINE -->
+  <section>
+    <h2>What to expect</h2>
+    <div class="timeline">
+      <div><strong>Day 1</strong>A smoother first cup. Most people use less creamer straight away.</div>
+      <div><strong>Week 1</strong>Steadier energy. No 2:30 cliff.</div>
+      <div><strong>Week 3</strong>Café runs become optional. The carton lives in the fridge door.</div>
+    </div>
+  </section>
+
+  <!-- 13. COMPARISON TABLE -->
+  <section>
+    <h2>Lumen Brew vs. the usual options</h2>
+    <table>
+      <thead><tr><th></th><th>Lumen Brew</th><th>Hot drip</th><th>Café cold brew</th></tr></thead>
+      <tbody>
+        <tr><td>Never heated</td><td class="y">&#10003;</td><td class="n">&#10007;</td><td class="n">&#10007;</td></tr>
+        <tr><td>No added sugar</td><td class="y">&#10003;</td><td class="y">&#10003;</td><td class="n">&#10007;</td></tr>
+        <tr><td>Ready in 10 seconds</td><td class="y">&#10003;</td><td class="n">&#10007;</td><td class="n">&#10007;</td></tr>
+        <tr><td>Cost per cup</td><td><strong>$1.56</strong></td><td>$0.90</td><td>$5.75</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 14. PACKAGE PRICING / OFFER -->
+  <section id="offer">
+    <h2>Choose your bundle</h2>
+    <div class="tiers">
+      <div class="tier"><h3>1 Carton</h3><div class="was">$32</div><div class="now">$25</div><div class="per">16 cups &middot; $1.56/cup</div><a class="btn" href="#offer">Choose</a></div>
+      <div class="tier best"><h3>3 Cartons</h3><div class="was">$96</div><div class="now">$66</div><div class="per">48 cups &middot; $1.38/cup &middot; free shipping</div><a class="btn" href="#offer">Choose</a></div>
+      <div class="tier"><h3>6 Cartons</h3><div class="was">$192</div><div class="now">$120</div><div class="per">96 cups &middot; $1.25/cup &middot; free shipping</div><a class="btn" href="#offer">Choose</a></div>
+    </div>
+  </section>
+
+  <!-- 15. GUARANTEE -->
+  <section>
+    <div class="guarantee">
+      <div class="shield" aria-hidden="true"></div>
+      <div><h3>30-day "love the taste" guarantee</h3>Don't like it? Tell us within 30 days and we'll refund the carton, even if it's empty. (Sample copy for a fictional brand.)</div>
+    </div>
+  </section>
+
+  <!-- 16. FINAL CTA -->
+  <section class="final">
+    <h2>This roast batch closes Sunday</h2>
+    <p>Each batch is roasted in small runs, and the autumn single-origin won't be back until spring.</p>
+    <a class="btn btn-lg" href="#offer">Get Lumen Brew Now: Save 31%</a>
+    <p class="caption" style="margin-top:12px">Join 3,900+ (fictional) cold-brew converts.</p>
+  </section>
+
+</main>
+
+<!-- 17. FOOTER -->
+<footer>
+  <div class="wrap">
+    <p>This is a demonstration page for a fictional product. Lumen Brew, its founders, editor, customers, reviews, ratings, prices and statistics do not exist. It is not an offer for sale. Statements on this page have not been evaluated by any authority.</p>
+    <a href="#">Privacy Policy</a><a href="#">Terms</a><a href="#">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>
