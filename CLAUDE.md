@@ -12,7 +12,7 @@ When the user asks to build an advertorial (or this file is loaded into a fresh 
 3. **"What's the mechanism / unique angle?"** — Free text. The "why this works when others don't" story. Example: "Lipid-encapsulated vitamin C that stays stable until it reaches the dermal layer"
 4. **"What proof do you have?"** — Free text. Reviews, star rating, expert endorsements, press mentions, customer count. Example: "47,000+ reviews, 4.8 stars, dermatologist-formulated, featured in Allure"
 5. **"Pick a page style"** — Single-select from the presets below.
-6. **"Do you have product image URLs?"** — Optional. If yes, they'll be placed in hero, product showcase, and CTA sections. If no, use Nano Banana Pro API to generate product images (see Image Generation section).
+6. **"Do you have product image URLs?"** — Optional. If yes, they'll be placed in hero, product showcase, and CTA sections. If no, use Nano Banana 2 API to generate product images (see Image Generation section).
 
 ## Page Style Presets
 Each preset defines the visual feel of the advertorial. The DR structure stays the same — only the aesthetics change.
@@ -21,7 +21,7 @@ Each preset defines the visual feel of the advertorial. The DR structure stays t
 - **Identity:** Reads like a medical journal article or health magazine feature. Clean, authoritative, trustworthy.
 - **Palette:** White `#FFFFFF` background, Charcoal `#1A1A1A` text, Medical Blue `#2B6CB0` accents, Light Gray `#F7FAFC` section alternation
 - **Typography:** Serif headlines (Georgia or similar), sans-serif body (system fonts). Max-width 720px centered.
-- **Authority figure:** Doctor, dermatologist, or specialist with credentials and headshot placeholder.
+- **Authority figure:** A real, credentialed expert the brand works with (ask the user for name, credentials and permission). If none is supplied, leave a clearly marked `[EXPERT — supply real name & credentials]` slot. Never invent a person or credentials.
 - **Best for:** Skincare, supplements, health/wellness, anti-aging
 
 ### Preset B — "Lifestyle Magazine"
@@ -60,8 +60,8 @@ This is the proven structure extracted from advertorial pages running profitably
 - Large serif font. Centered or left-aligned.
 
 ### 3. BYLINE + DATE
-- Fake (but realistic) author name with credentials.
-- "By Dr. Sarah Mitchell, Board-Certified Dermatologist | Published [recent date]"
+- The real author's name and credentials, supplied by the user. If none is supplied, use `By [Author name, credentials] | Published [date]` — never invent a person or a credential.
+- Advertorials must carry an "Advertisement" / "Sponsored" label near the top (FTC endorsement and native-advertising guidance).
 - Small text, muted color. Adds editorial credibility.
 
 ### 4. HERO IMAGE
@@ -108,8 +108,9 @@ This is the proven structure extracted from advertorial pages running profitably
 
 ### 11. SOCIAL PROOF BLOCK
 - 3-4 customer testimonial cards styled like product review screenshots.
-- Include: Name, age/location, star rating, review text, "Verified Buyer" badge.
-- Make them specific and story-driven, not generic praise.
+- Use REAL customer reviews the user supplies (with permission). Include: name or initials, location, star rating, review text; show a "Verified Buyer" badge only if the user confirms the purchase was verified.
+- If no real reviews are supplied, write sample cards marked `[SAMPLE — replace with a real customer review]` so they cannot ship as genuine.
+- Prefer specific, story-driven reviews over generic praise.
 - At least one should mention skepticism → conversion: "I was skeptical at first, but..."
 
 ### 12. RESULTS TIMELINE
@@ -150,7 +151,7 @@ When the user doesn't provide product images, generate them using the KIE.ai API
 
 ### Available Models
 - **Nano Banana 2** — Image generation. Use for all product photography, lifestyle shots, ingredient visuals, and transformation images.
-- **Cling 3.0** — Video generation. Use when the user requests video content (product demos, social media clips, etc.).
+- **Kling 3.0** — Video generation. Use when the user requests video content (product demos, social media clips, etc.).
 
 ### KIE.ai API Reference
 
@@ -303,7 +304,7 @@ Files are stored temporarily and auto-deleted after 3 days.
 - **Responsive:** Mobile-first. Readable on phones without zooming. Stack all grids to single column on mobile. Font sizes scale down appropriately.
 - **Max-width:** Content area between 700-760px, centered with `margin: 0 auto`.
 - **No JavaScript required.** Pure HTML + CSS. Keep it simple and fast-loading.
-- **No placeholder text.** Every headline, paragraph, testimonial, and CTA must be fully written with real copy based on the user's inputs.
+- **No placeholder text** for headlines, body copy and CTAs — write them fully from the user's inputs. The only exceptions are the clearly marked slots for real expert credentials, testimonials and statistics, which must come from the user.
 - **Star ratings:** Use HTML entities (★ ☆) or inline SVG. No image dependencies.
 - **CTA buttons:** Accent color background, white text, rounded corners, subtle hover state with CSS transitions. Large tap target for mobile (min 48px height).
 
@@ -311,11 +312,11 @@ Files are stored temporarily and auto-deleted after 3 days.
 These rules separate a converting advertorial from generic AI slop:
 
 1. **Write like a journalist, not a marketer.** The reader should feel like they're reading an article, not being sold to. The selling happens through the structure, not the tone.
-2. **Specific > generic.** "47,382 women" beats "thousands of women." "In 14 days" beats "quickly." "$3.27/day" beats "affordable."
+2. **Specific > generic** — but only with real numbers. "47,382 women" beats "thousands of women" *if the brand can substantiate it*. Never invent statistics, ratings or review counts; ask the user, or leave a marked `[STAT — supply a substantiated figure]` slot.
 3. **One idea per paragraph.** Short paragraphs. Lots of white space. Scannable.
 4. **No AI vocabulary.** Never use: delve, landscape, testament, showcase, foster, underscore, pivotal, crucial, realm, myriad, tapestry, multifaceted, commendable, intricate, comprehensive, game-changer, revolutionize.
-5. **No hype adjectives without proof.** Don't say "amazing" — show a 4.8 star rating from 47,000 reviews and let the reader decide it's amazing.
-6. **Testimonials sound like real people.** Include hesitation, specific details, timeframes. "I almost didn't order because I'd tried like 4 other serums already. But my sister kept bugging me about it. After about 2 weeks I noticed my dark spots were actually lighter. Now I'm on my 3rd bottle." — NOT "This product is amazing! 5 stars! Best purchase ever!"
+5. **No hype adjectives without proof.** Don't say "amazing" — show the brand's real rating and review count and let the reader decide.
+6. **Choose testimonials that sound like real people** (from the reviews the user supplies). The best ones include hesitation, specific details, timeframes. "I almost didn't order because I'd tried like 4 other serums already. But my sister kept bugging me about it. After about 2 weeks I noticed my dark spots were actually lighter. Now I'm on my 3rd bottle." — NOT "This product is amazing! 5 stars! Best purchase ever!"
 7. **The mechanism is the star.** The unique angle/mechanism is what makes this page different from every other advertorial. Devote real space to explaining it. Use analogies. Make the reader feel smarter for understanding it.
 8. **Urgency must feel real.** Don't just say "limited time." Tie it to something: a seasonal sale, a production batch, a recent media feature driving demand.
 
@@ -325,8 +326,8 @@ After receiving answers to the questions:
 2. Write the editorial headline using the brand + target audience + mechanism.
 3. Write the full opening hook based on the target customer's pain points.
 4. Build the root cause reframe around the mechanism/unique angle.
-5. Write all testimonials with specific, believable details.
-6. Generate images via Nano Banana Pro if no product images provided.
+5. Place the real testimonials the user supplied (or clearly marked sample slots if none).
+6. Generate images via Nano Banana 2 if no product images provided.
 7. Output the complete `index.html` file — every section fully written, styled, and responsive.
 
 ## Execution Directive
